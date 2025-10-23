@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from app.weather import fetch_weather
-from app.database import get_db_connection
+# from app.database import get_db_connection  # Disable MySQL for now
 
 app = FastAPI()
 
@@ -17,16 +17,25 @@ app.add_middleware(
 def get_weather(city: str):
     try:
         data = fetch_weather(city)
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        cursor.execute(
-            "INSERT INTO weather_data (city, temperature, humidity) VALUES (%s, %s, %s)",
-            (data["city"], data["temperature"], data["humidity"])
-        )
-        conn.commit()
-        cursor.close()
-        conn.close()
+
+        # --- Temporarily disable MySQL section ---
+        # conn = get_db_connection()
+        # cursor = conn.cursor()
+        # cursor.execute(
+        #     "INSERT INTO weather_data (city, temperature, humidity) VALUES (%s, %s, %s)",
+        #     (data["city"], data["temperature"], data["humidity"])
+        # )
+        # conn.commit()
+        # cursor.close()
+        # conn.close()
+        # ------------------------------------------
+
         return data
     except Exception as e:
         print("Error:", e)
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/")
+def root():
+    return {"message": "Weather Dashboard API is running!"}
