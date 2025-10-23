@@ -10,6 +10,8 @@ This is the **backend** for a Weather Dashboard project. It is a Python-based Fa
 
 This backend serves as the foundation for a full-stack weather dashboard, allowing the frontend to retrieve and display current weather data and historical records.
 
+> ⚡ **Note:** This backend is deployed on [Render](https://render.com/) because Hostinger does not support Python applications. Render provides a free-tier hosting service for Python apps, making it easy to serve your API online so your React frontend (hosted on Hostinger) can fetch data.
+
 ---
 
 ## Features
